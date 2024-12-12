@@ -1,6 +1,6 @@
-import { db } from "../../shared/shared";
-import User from "../domain/user.model";
-import UserRepoModel from "../domain/user.repo.model";
+import { db } from "../../shared/interfaces/interfaces.js";
+import User from "../domain/user.model.js";
+import UserRepoModel from "../domain/user.repo.model.js";
 
 export default class UserKnexRepository implements UserRepoModel {
 
@@ -37,5 +37,10 @@ export default class UserKnexRepository implements UserRepoModel {
   async findAll(): Promise<User[]> {
     const users = await db('users').select('*');
     return users.map(user => new User(user.id, user.name, user.email, user.password))
+  }
+
+  async search(query: { key: string; value: unknown }): Promise<User[]> {
+    const users = await db('users').where(query.key, query.value);
+    return users.map(user => new User(user.id, user.name, user.email, user.password, user.role))
   }
 }

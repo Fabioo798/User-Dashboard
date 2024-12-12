@@ -1,7 +1,6 @@
-import User from '../domain/user.model';
-import { db } from '../../shared/shared';
-import UserKnexRepository from './user.knex.repo';
-
+import { db } from '../../shared/interfaces/interfaces.js'
+import User from '../domain/user.model.js'
+import UserKnexRepository from './user.knex.repo.js'
 jest.mock('../../shared/shared', () => {
   const mockDb = {
     insert: jest.fn().mockReturnThis(),
@@ -19,6 +18,7 @@ jest.mock('../../shared/shared', () => {
 
 describe('UserKnexRepository', () => {
   let userRepo: UserKnexRepository;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const mockDb = db() as any;
 
   beforeEach(() => {
@@ -71,6 +71,21 @@ describe('UserKnexRepository', () => {
 
       expect(mockDb.where).toHaveBeenCalledWith({ id: 1 });
       expect(mockDb.del).toHaveBeenCalled();
+    });
+  });
+
+  describe('findAll', () => {
+    it('should return all users', async () => {
+      const users = [
+        { id: 1, name: 'John Doe', email: 'john@example.com', password: 'password123' },
+        { id: 2, name: 'Jane Doe', email: 'jane@example.com', password: 'password456' },
+      ];
+      mockDb.select.mockResolvedValueOnce(users);
+
+      const result = await userRepo.findAll();
+
+      expect(mockDb.select).toHaveBeenCalledWith('*');
+      expect(result).toEqual(users.map(user => new User(user.id, user.name, user.email, user.password)));
     });
   });
 

@@ -5,6 +5,7 @@ export default class User {
   public email: string,
   public password: string,
   public name: string,
+  public role: "admin" | "user" = "user"
   ) {}
 
   toDatabase(): Record<string, unknown> {
