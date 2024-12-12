@@ -2,6 +2,9 @@
 
 .env
 
+# Ignore SQLite database files
+apps/api/src/db/dev.sqlite3
+
 # compiled output
 dist
 tmp
