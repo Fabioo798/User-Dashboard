@@ -1,7 +1,8 @@
 import { db } from '../../shared/interfaces/interfaces.js'
 import User from '../domain/user.model.js'
 import UserKnexRepository from './user.knex.repo.js'
-jest.mock('../../shared/shared', () => {
+
+jest.mock('../../shared/interfaces/interfaces.js', () => {
   const mockDb = {
     insert: jest.fn().mockReturnThis(),
     where: jest.fn().mockReturnThis(),
@@ -77,8 +78,8 @@ describe('UserKnexRepository', () => {
   describe('findAll', () => {
     it('should return all users', async () => {
       const users = [
-        { id: 1, name: 'John Doe', email: 'john@example.com', password: 'password123' },
-        { id: 2, name: 'Jane Doe', email: 'jane@example.com', password: 'password456' },
+        { id: 1, name: 'John Doe', email: 'john@example.com', password: "" },
+        { id: 2, name: 'Jane Doe', email: 'jane@example.com', password: "" },
       ];
       mockDb.select.mockResolvedValueOnce(users);
 
@@ -92,8 +93,8 @@ describe('UserKnexRepository', () => {
   describe('findAll', () => {
     it('should return all users', async () => {
       const users = [
-        { id: 1, name: 'John Doe', email: 'john@example.com', password: 'password123' },
-        { id: 2, name: 'Jane Doe', email: 'jane@example.com', password: 'password456' },
+        { id: 1, name: 'John Doe', email: 'john@example.com', password: "" },
+        { id: 2, name: 'Jane Doe', email: 'jane@example.com', password: "" },
       ];
       mockDb.select.mockResolvedValueOnce(users);
 
