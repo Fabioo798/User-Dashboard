@@ -1,11 +1,10 @@
-// Uncomment this line to use CSS modules
-// import styles from './app.module.css';
-import NxWelcome from './nx-welcome';
-
+import { Header, Footer, Sidebar } from '@user-dashboard/shared-ui';
 export function App() {
   return (
     <div>
-      <NxWelcome title="app-user" />
+      <Header />
+      <Sidebar />
+      <Footer />
     </div>
   );
 }
