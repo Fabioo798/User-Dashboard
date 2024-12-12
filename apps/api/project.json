@@ -12,7 +12,23 @@
         "outputPath": "dist/apps/api",
         "main": "apps/api/src/main.ts",
         "tsConfig": "apps/api/tsconfig.json",
-        "assets": ["apps/api/src/assets"]
+        "assets": [
+          {
+            "glob": "**/*",
+            "input": "apps/api/src/db/migrations",
+            "output": "db/migrations"
+          },
+          {
+            "glob": "**/*",
+            "input": "apps/api/src/db/seeds",
+            "output": "db/seeds"
+          },
+          {
+            "glob": ".env",
+            "input": "apps/api/src",
+            "output": "."
+          }
+        ]
       },
       "configurations": {
         "development": {

@@ -3,7 +3,7 @@
   "compilerOptions": {
     "declaration": true,
     "outDir": "../../dist/out-tsc",
-    "module": "ESNext",
+    "module": "CommonJS",
     "types": ["node", "express"],
     "composite": true
   },
