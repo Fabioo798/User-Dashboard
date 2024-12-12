@@ -1,5 +1,5 @@
-import User from "../domain/user.model";
-import UserRepoModel from "../domain/user.repo.model";
+import User from "../domain/user.model.js";
+import UserRepoModel from "../domain/user.repo.model.js";
 
 export default class UserService {
   constructor(private userRepo: UserRepoModel) {}
@@ -22,5 +22,9 @@ export default class UserService {
 
   async findAllUsers(): Promise<User[]> {
     return await this.userRepo.findAll();
+  }
+
+  async searchUsers(query: { key: string; value: unknown }): Promise<User[]> {
+    return await this.userRepo.search(query);
   }
 }

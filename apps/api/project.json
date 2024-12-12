@@ -5,6 +5,42 @@
   "projectType": "application",
   "tags": [],
   "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/api",
+        "main": "apps/api/src/main.ts",
+        "tsConfig": "apps/api/tsconfig.json",
+        "assets": [
+          {
+            "glob": "**/*",
+            "input": "apps/api/src/db/migrations",
+            "output": "db/migrations"
+          },
+          {
+            "glob": "**/*",
+            "input": "apps/api/src/db/seeds",
+            "output": "db/seeds"
+          },
+          {
+            "glob": ".env",
+            "input": "apps/api/src",
+            "output": "."
+          }
+        ]
+      },
+      "configurations": {
+        "development": {
+          "optimization": false,
+          "sourceMap": true
+        },
+        "production": {
+          "optimization": true,
+          "sourceMap": false
+        }
+      }
+    },
     "serve": {
       "executor": "@nx/js:node",
       "defaultConfiguration": "development",
