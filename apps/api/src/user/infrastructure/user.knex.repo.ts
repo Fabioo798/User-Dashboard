@@ -1,6 +1,7 @@
 import { db } from "../../shared/interfaces/interfaces.js";
 import User from "../domain/user.model.js";
 import UserRepoModel from "../domain/user.repo.model.js";
+import { omit } from 'lodash';
 
 export default class UserKnexRepository implements UserRepoModel {
 
@@ -36,11 +37,24 @@ export default class UserKnexRepository implements UserRepoModel {
 
   async findAll(): Promise<User[]> {
     const users = await db('users').select('*');
-    return users.map(user => new User(user.id, user.name, user.email, user.password))
-  }
+    console.log(users[0]);
+    return users.map(user => {
+    const userWithoutPassword = omit(user, ['password']);
+    return new User(
+      userWithoutPassword.id,
+      userWithoutPassword.name,
+      userWithoutPassword.email,
+      '',
+      userWithoutPassword.role,
+      userWithoutPassword.created_at,
+      userWithoutPassword.updated_at
+    );
+  });
+}
 
   async search(query: { key: string; value: unknown }): Promise<User[]> {
+    console.log(query);
     const users = await db('users').where(query.key, query.value);
-    return users.map(user => new User(user.id, user.name, user.email, user.password, user.role))
+    return users.map(user => new User(user.id, user.name, user.email, user.password, user.role, user.created_at, user.updated_at))
   }
 }
