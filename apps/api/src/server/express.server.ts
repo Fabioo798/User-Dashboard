@@ -30,19 +30,19 @@ export default class ExpressServer {
   }
 
   start(port: number): void {
-    // SQLite does not need a persistent connection like MongoDB
     this.app.listen(port, () => {
       debug(`Server running on port ${port}`);
     });
 
-    // Test the Knex connection (optional)
     db.raw('SELECT 1')
       .then(() => {
+        console.log('Database connection successful');
         debug('Database connection successful');
       })
       .catch((error) => {
+        console.error('Database connection failed', error);
         debug('Database connection failed', error);
-        process.exit(1); // Exit if the database connection fails
+        process.exit(1);
       });
   }
 }

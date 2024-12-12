@@ -1,6 +1,6 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import { config } from '../../config.js';
+import { configVariables } from '../../config.variables.js';
 import { TokenPayload } from '../interfaces/interfaces.js';
 
 const saltRounds = parseInt(process.env.SALT_ROUNDS || '10', 10);
@@ -8,12 +8,12 @@ const saltRounds = parseInt(process.env.SALT_ROUNDS || '10', 10);
 
 export class Auth {
   static createJWT(payload: TokenPayload) {
-    return jwt.sign(payload, config.jwtsecret as string, {expiresIn: '1h'});
+    return jwt.sign(payload, configVariables.jwt_secret as string, {expiresIn: '1h'});
   }
 
   static verifyJWTgettingPayload(token: string): TokenPayload {
     try {
-      const result = jwt.verify(token, config.jwtsecret as string);
+      const result = jwt.verify(token, configVariables.jwt_secret as string);
       if (typeof result === 'string') throw new Error(result);
       return result as TokenPayload;
     }catch (error) {

@@ -31,7 +31,6 @@ export class Interceptors {
 
   authorized(req: RequestPlus, _res: Response, next: NextFunction): void {
     try {
-
         if (!req.info) {
           throw new HTTPError(
             498,

@@ -17,8 +17,6 @@ export interface CustomError extends Error {
 
 export const db = knex(config.development);
 
-
-
 export default interface ServerRouter {
   router: Router;
   path: string;
