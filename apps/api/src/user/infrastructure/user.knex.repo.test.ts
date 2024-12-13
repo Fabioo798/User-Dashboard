@@ -1,6 +1,6 @@
-import { db } from '../../shared/interfaces/interfaces.js'
-import User from '../domain/user.model.js'
-import UserKnexRepository from './user.knex.repo.js'
+import { db } from '../../shared/interfaces/interfaces.js';
+import User from '../domain/user.model.js';
+import UserKnexRepository from './user.knex.repo.js';
 
 jest.mock('../../shared/interfaces/interfaces.js', () => {
   const mockDb = {
@@ -15,7 +15,6 @@ jest.mock('../../shared/interfaces/interfaces.js', () => {
     db: jest.fn(() => mockDb),
   };
 });
-
 
 describe('UserKnexRepository', () => {
   let userRepo: UserKnexRepository;
@@ -53,7 +52,7 @@ describe('UserKnexRepository', () => {
 
   describe('find', () => {
     it('should return a user by id', async () => {
-      const user = { id: 1, name: 'John Doe', email: 'john@example.com', password: 'password123' };
+      const user = { id: 1, name: 'John Doe', email: 'john@example.com', password: '' };
       mockDb.first.mockResolvedValueOnce(user);
 
       const result = await userRepo.find(1);
@@ -78,23 +77,8 @@ describe('UserKnexRepository', () => {
   describe('findAll', () => {
     it('should return all users', async () => {
       const users = [
-        { id: 1, name: 'John Doe', email: 'john@example.com', password: "" },
-        { id: 2, name: 'Jane Doe', email: 'jane@example.com', password: "" },
-      ];
-      mockDb.select.mockResolvedValueOnce(users);
-
-      const result = await userRepo.findAll();
-
-      expect(mockDb.select).toHaveBeenCalledWith('*');
-      expect(result).toEqual(users.map(user => new User(user.id, user.name, user.email, user.password)));
-    });
-  });
-
-  describe('findAll', () => {
-    it('should return all users', async () => {
-      const users = [
-        { id: 1, name: 'John Doe', email: 'john@example.com', password: "" },
-        { id: 2, name: 'Jane Doe', email: 'jane@example.com', password: "" },
+        { id: 1, name: 'John Doe', email: 'john@example.com', password: '' },
+        { id: 2, name: 'Jane Doe', email: 'jane@example.com', password: '' },
       ];
       mockDb.select.mockResolvedValueOnce(users);
 
