@@ -3,7 +3,7 @@ export { default as Header } from './lib/Layout/Header';
 export { default as Footer } from './lib/Layout/Footer';
 export { default as Button } from './lib/Button';
 export { default as Card } from './lib/Card';
-export { default as DataTable } from './lib/DataTable';
 export { default as colors } from './theme/colors';
 export { default as typography } from './theme/typography';
 export { default as spacing } from './theme/spacing';
+export { default as Dashboard } from './lib/dashboard/Dashboard';
