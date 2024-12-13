@@ -1,20 +1,9 @@
-import * as React from 'react';
 import { Drawer, Stack, Avatar, Typography, Divider, Button } from '@mui/material';
-import MenuButton from './MenuButton';
-import NotificationsRoundedIcon from '@mui/icons-material/NotificationsRounded';
 import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded';
 import MenuContent from './MenuContent';
+import { SideMenuMobileProps } from '../interfaces';
 
-interface SideMenuMobileProps {
-  open: boolean;
-  toggleDrawer: (newOpen: boolean) => () => void;
-  user: {
-    name: string;
-    email: string;
-  };
-  onLogout: () => void;
-  onEditProfile: () => void;
-}
+
 
 export default function SideMenuMobile({ open, toggleDrawer, user, onLogout, onEditProfile }: SideMenuMobileProps) {
   return (
@@ -34,9 +23,6 @@ export default function SideMenuMobile({ open, toggleDrawer, user, onLogout, onE
             {user.name}
           </Typography>
         </Stack>
-        <MenuButton showBadge>
-          <NotificationsRoundedIcon />
-        </MenuButton>
       </Stack>
       <Divider />
       <Stack sx={{ flexGrow: 1 }}>

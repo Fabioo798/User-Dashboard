@@ -9,6 +9,7 @@ import Typography from '@mui/material/Typography';
 import SelectContent from './SelectContent';
 import MenuContent from './MenuContent';
 import OptionsMenu from './OptionsMenu';
+import { SideMenuProps } from '../interfaces';
 
 const drawerWidth = 240;
 
@@ -22,15 +23,6 @@ const Drawer = styled(MuiDrawer)({
     boxSizing: 'border-box',
   },
 });
-
-interface SideMenuProps {
-  user: {
-    name: string;
-    email: string;
-  };
-  onLogout: () => void;
-
-}
 
 export default function SideMenu({ user, onLogout }: SideMenuProps) {
   return (
