@@ -2,8 +2,20 @@ import express, { Express } from 'express';
 import cors from 'cors';
 import ServerRouter, { db } from '../shared/interfaces/interfaces.js';
 import createDebug from 'debug';
+import { errorMiddleware } from '../middlewares/error.middleware.js';
 
 const debug = createDebug('App:ExpressServer');
+
+const routes = [
+  { endpoint: 'users/register', method: 'POST' },
+  { endpoint: 'users/login', method: 'POST' },
+  { endpoint: 'users/admin/login', method: 'POST' },
+  { endpoint: '/users/:userId', method: 'GET' },
+  { endpoint: '/users', method: 'GET' },
+  { endpoint: '/users/:userId', method: 'PUT' },
+  { endpoint: '/users/:userId', method: 'DELETE' },
+  { endpoint: '/users/search/user', method: 'GET' },
+];
 
 export default class ExpressServer {
   app: Express;
@@ -12,6 +24,7 @@ export default class ExpressServer {
     this.app = express();
     this.config();
     this.routes();
+    this.errorHandling();
   }
 
   config(): void {
@@ -21,12 +34,16 @@ export default class ExpressServer {
 
   routes(): void {
     this.app.get('/', (req, res) => {
-      res.json({ message: 'Welcome to the API!' });
+      res.json({ message: 'Welcome to the API!', routes });
     });
 
     this.routers.forEach((router) => {
       this.app.use(router.path, router.router);
     });
+  }
+
+  errorHandling(): void {
+    this.app.use(errorMiddleware);
   }
 
   start(port: number): void {

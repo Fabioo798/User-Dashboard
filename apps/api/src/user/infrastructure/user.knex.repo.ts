@@ -48,7 +48,6 @@ export default class UserKnexRepository implements UserRepoModel {
 
   async findAll(): Promise<User[]> {
     const users = await db('users').select('*');
-    console.log(users[0]);
     return users.map(user => {
     const userWithoutPassword = omit(user, ['password']);
     return new User(
@@ -64,7 +63,6 @@ export default class UserKnexRepository implements UserRepoModel {
 }
 
   async search(query: { key: string; value: unknown }): Promise<User[]> {
-    console.log(query);
     const users = await db('users').where(query.key, query.value);
     return users.map(user => new User(user.id, user.name, user.email, user.password, user.role, user.created_at, user.updated_at))
   }
