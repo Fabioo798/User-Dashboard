@@ -1,8 +1,10 @@
 import { db } from "../../shared/interfaces/interfaces.js";
 import User from "../domain/user.model.js";
 import UserRepoModel from "../domain/user.repo.model.js";
-import { omit } from 'lodash';
+import pkg from 'lodash';
 
+
+const { omit } = pkg;
 export default class UserKnexRepository implements UserRepoModel {
 
   async create(user: User): Promise<void> {
@@ -25,7 +27,16 @@ export default class UserKnexRepository implements UserRepoModel {
     if(!user){
       throw new Error('User not found')
     }
-    return new User(user.id, user.name, user.email, user.password)
+    const userWithoutPassword = omit(user, ['password']);
+    return new User(
+      userWithoutPassword.id,
+      userWithoutPassword.name,
+      userWithoutPassword.email,
+      '',
+      userWithoutPassword.role,
+      userWithoutPassword.created_at,
+      userWithoutPassword.updated_at
+    );
   }
 
   async delete(id: number): Promise<void> {

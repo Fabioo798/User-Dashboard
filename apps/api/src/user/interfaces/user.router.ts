@@ -21,7 +21,7 @@ export default class UserRouter implements ServerRouter {
     this.router.get('/',  this.controller.findAllUsers.bind(this.controller));
     this.router.put('/:id', this.interceptor.logged, this.controller.updateUser.bind(this.controller));
     this.router.delete('/:id', this.interceptor.logged, this.interceptor.authorized, this.controller.deleteUser.bind(this.controller));
-    this.router.get('/:id', this.interceptor.logged, this.interceptor.authorized, this.controller.findUser.bind(this.controller));
+    this.router.get('/:id', this.interceptor.logged, this.controller.findUser.bind(this.controller));
     this.router.get('/search/user', this.interceptor.logged, this.interceptor.authorized, this.controller.searchUsers.bind(this.controller));
   }
 }
