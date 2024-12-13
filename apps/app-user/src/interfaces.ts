@@ -1,7 +1,7 @@
 
-interface User {
+export interface User {
   id: number;
-  name?: string;
+  name: string;
   email: string;
 }
 
@@ -11,6 +11,16 @@ export interface state {
 }
 
 export interface useLoginResponse {
+  message: string;
+  results: string;
+}
+
+export interface onEditProfileResponse {
+  ok: boolean;
+  message: string;
+}
+
+export interface apiLoginResponse {
   message: string;
   results: string;
 }
