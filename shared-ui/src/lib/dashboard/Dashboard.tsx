@@ -20,6 +20,8 @@ import {
 import type {} from '@mui/material/themeCssVarsAugmentation';
 import { styled } from '@mui/material/styles';
 import MainGrid from './components/MainGrid';
+import { Outlet } from 'react-router-dom';
+import { DashboardProps } from './interfaces';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const StyledComponent = styled('button')(({ theme }) => ({
@@ -34,16 +36,12 @@ const xThemeComponents = {
   ...treeViewCustomizations,
 };
 
-interface DashboardProps {
-  user: {
-    name: string;
-    email: string;
-  };
-  onLogout: () => void;
-  onEditProfile: () => void;
-}
 
 const Dashboard: React.FC<DashboardProps> = ({ user, onLogout, onEditProfile }) => {
+  function userRefetch(): void {
+    throw new Error('Function not implemented.');
+  }
+
   return (
     <AppTheme themeComponents={xThemeComponents}>
       <CssBaseline enableColorScheme />
@@ -70,7 +68,8 @@ const Dashboard: React.FC<DashboardProps> = ({ user, onLogout, onEditProfile }) 
             }}
           >
             <Header />
-            <MainGrid user={user}/>
+            <MainGrid user={user} onEditProfile={onEditProfile} userRefetch={userRefetch}/>
+            <Outlet />
           </Stack>
         </Box>
       </Box>

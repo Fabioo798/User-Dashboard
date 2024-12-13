@@ -11,6 +11,7 @@ import DashboardRoundedIcon from '@mui/icons-material/DashboardRounded';
 import SideMenuMobile from './SideMenuMobile';
 import MenuButton from './MenuButton';
 import ColorModeIconDropdown from '../../shared-theme/ColorModeIconDropdown';
+import { AppNavbarProps } from '../interfaces';
 
 const Toolbar = styled(MuiToolbar)({
   width: '100%',
@@ -28,14 +29,7 @@ const Toolbar = styled(MuiToolbar)({
   },
 });
 
-interface AppNavbarProps {
-  user: {
-    name: string;
-    email: string;
-  };
-  onLogout: () => void;
-  onEditProfile: () => void;
-}
+
 
 export default function AppNavbar({ user, onLogout, onEditProfile }: AppNavbarProps) {
   const [open, setOpen] = React.useState(false);

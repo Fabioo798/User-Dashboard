@@ -2,16 +2,13 @@ import Grid from '@mui/material/Grid2';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Copyright from '../internals/components/Copyright';
-import HighlightedCard from './HighlightedCard';
+import UserProfileCard from './UserProfileCard';
+import { MainGridProps } from '../interfaces';
+import { Divider } from '@mui/material';
 
-interface MainGridProps {
-  user: {
-  name: string;
-  email: string;
-  };
-}
 
-export default function MainGrid({ user } : MainGridProps) {
+
+export default function MainGrid({ user, onEditProfile, userRefetch } : MainGridProps) {
   return (
     <Box sx={{ width: '100%', maxWidth: { sm: '100%', md: '1700px' } }}>
       {/* cards */}
@@ -25,10 +22,11 @@ export default function MainGrid({ user } : MainGridProps) {
         sx={{ mb: (theme) => theme.spacing(2) }}
       >
         <Grid size={{ xs: 12, sm: 6, lg: 3 }}>
-          <HighlightedCard user={user}/>
+          <UserProfileCard user={user} onEditProfile={onEditProfile} userRefetch={userRefetch} />
         </Grid>
       </Grid>
-      <Copyright sx={{ mt: 4 }} />
+      <Divider sx={{ mt:59 }} />
+      <Copyright sx={{ mt: 6 }} />
     </Box>
   );
 }
