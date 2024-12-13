@@ -12,7 +12,6 @@ export class UserController {
   async register(req:Request, res:Response, next:NextFunction): Promise<void> {
     try {
       const { email, password, name, role } = req.body;
-      console.log(req.body)
 
       if(!email || !password || !name || !role) {
 
@@ -22,7 +21,7 @@ export class UserController {
       req.body.password = await Auth.hash(req.body.password);
 
       const now = new Date().toISOString().replace('T', ' ').substring(0, 19);
-      const user = new User(null, name, email, req.body.password, role || "user", now, now);      console.log(user)
+      const user = new User(null, name, email, req.body.password, role || "user", now, now);
 
       await this.userService.createUser(user);
 
@@ -45,15 +44,12 @@ export class UserController {
       if (!user || user.length === 0) {
         throw new HTTPError(404, 'Not Found', 'User not found');
       }
-      console.log(user[0])
-      const foundUser = user[0];
-      console.log("foundUser password + ", foundUser.password)
-      console.log("password + ", password)
       if (!(await Auth.compare(password, user[0].password)))
         throw new HTTPError(401, 'Unauthorized', 'Password not match');
 
       const payload: TokenPayload = {
         id: user[0].id,
+        name: user[0].name,
         email: user[0].email,
         role: user[0].role,
       };
@@ -76,8 +72,6 @@ export class UserController {
     const currentUserId = req.info.id;
     const currentUserRole = req.info.role;
 
-    console.log(req.info);
-    console.log(currentUserRole);
 
     // Check if the current user is an admin
     if (currentUserRole === 'admin') {
@@ -156,12 +150,10 @@ export class UserController {
         throw new HTTPError(400, 'Bad Request', 'Missing required fields');
       }
 
-      console.log("req body email searchuser + ", email)
       const response = await this.userService.searchUsers({ key: 'email', value: email });
       res.status(200);
       res.json({ results: response });
     } catch (error) {
-      console.log("error searchuser + ", error)
       next(error);
     }
   }
