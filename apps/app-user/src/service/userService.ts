@@ -28,7 +28,6 @@ export const useFetchProfile = (id: number) =>
 export const useUpdateProfile = () =>
   useMutation({
     mutationFn: async (profile: { id: number; name: string; email: string }) => {
-      console.log(profile.id)
       const { data } = await apiClient.put(`/${profile.id}`, profile);
       return data;
     },
