@@ -33,11 +33,17 @@
       "configurations": {
         "development": {
           "optimization": false,
-          "sourceMap": true
+          "sourceMap": true,
+          "env": {
+            "PORT": "4800"
+          }
         },
         "production": {
           "optimization": true,
-          "sourceMap": false
+          "sourceMap": false,
+          "env": {
+            "PORT": "4800"
+          }
         }
       }
     },
@@ -47,14 +53,23 @@
       "dependsOn": ["build"],
       "options": {
         "buildTarget": "api:build",
-        "runBuildTargetDependencies": false
+        "runBuildTargetDependencies": false,
+        "env": {
+          "PORT": "4800"
+        }
       },
       "configurations": {
         "development": {
-          "buildTarget": "api:build:development"
+          "buildTarget": "api:build:development",
+          "env": {
+            "PORT": "4800"
+          }
         },
         "production": {
-          "buildTarget": "api:build:production"
+          "buildTarget": "api:build:production",
+          "env": {
+            "PORT": "4800"
+          }
         }
       }
     }
