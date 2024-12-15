@@ -2,9 +2,10 @@ import * as React from 'react';
 import Stack from '@mui/material/Stack';
 import NavbarBreadcrumbs from './NavbarBreadcrumbs';
 import ColorModeIconDropdown from '../../shared-theme/ColorModeIconDropdown';
+import { NavbarProps } from '../interfaces';
 
 
-export default function Header() {
+export default function Header( {showCreateUser }: NavbarProps) {
   return (
     <Stack
       direction="row"
@@ -18,7 +19,7 @@ export default function Header() {
       }}
       spacing={2}
     >
-      <NavbarBreadcrumbs />
+      <NavbarBreadcrumbs showCreateUser={showCreateUser}/>
       <Stack direction="row" sx={{ gap: 1 }}>
         <ColorModeIconDropdown />
       </Stack>

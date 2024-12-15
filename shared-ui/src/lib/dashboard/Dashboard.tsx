@@ -22,6 +22,7 @@ import { styled } from '@mui/material/styles';
 import MainGrid from './components/MainGrid';
 import { Outlet } from 'react-router-dom';
 import { DashboardProps } from './interfaces';
+import { useState } from 'react';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const StyledComponent = styled('button')(({ theme }) => ({
@@ -37,17 +38,27 @@ const xThemeComponents = {
 };
 
 
-const Dashboard: React.FC<DashboardProps> = ({ user, onLogout, onEditProfile }) => {
+const Dashboard: React.FC<DashboardProps> = ({ user, allUsers, onLogout, onEditProfile, handleRemove, handleRetrieve, handleCreateUser }) => {
   function userRefetch(): void {
     throw new Error('Function not implemented.');
   }
+
+  const [showCreateUser, setShowCreateUser] = useState(false);
+
+  const onCreateUserClick = () => {
+    setShowCreateUser(true);
+  };
+
+  const onHomeClick = () => {
+    setShowCreateUser(false);
+  };
 
   return (
     <AppTheme themeComponents={xThemeComponents}>
       <CssBaseline enableColorScheme />
       <Box sx={{ display: 'flex' }}>
-       <SideMenu user={user} onLogout={onLogout}/>
-       <AppNavbar user={user} onLogout={onLogout} onEditProfile={onEditProfile} />
+       <SideMenu user={user} onLogout={onLogout} onCreateUserClick={onCreateUserClick} onHomeClick={onHomeClick}/>
+       <AppNavbar user={user} onLogout={onLogout} onEditProfile={onEditProfile} onCreateUserClick={onCreateUserClick} onHomeClick={onHomeClick}/>
         <Box
           component="main"
           sx={(theme) => ({
@@ -67,8 +78,8 @@ const Dashboard: React.FC<DashboardProps> = ({ user, onLogout, onEditProfile }) 
               mt: { xs: 8, md: 0 },
             }}
           >
-            <Header />
-            <MainGrid user={user} onEditProfile={onEditProfile} userRefetch={userRefetch}/>
+            <Header showCreateUser={showCreateUser}/>
+            <MainGrid user={user} showCreateUser={showCreateUser} allUsers={allUsers} onEditProfile={onEditProfile} userRefetch={userRefetch} handleRemove={handleRemove} handleRetrieve={handleRetrieve} handleCreateUser={handleCreateUser}/>
             <Outlet />
           </Stack>
         </Box>
