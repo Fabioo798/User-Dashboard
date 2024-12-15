@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
 import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
@@ -27,7 +28,20 @@ const AppRoutes = () => {
 
   return (
     <Routes>
-      <Route path="/login" element={<Login onLogin={handleLogin} />} />
+      <Route path="/login" element={<>
+          <Dashboard
+            user={{ id: 0, name: '', email: '', role: 'user' }}
+            allUsers={[]}
+            onLogout={() => {}}
+            onEditProfile={() => Promise.resolve({ ok: true, message: 'Profile updated' })} // Mock implementation
+              handleRemove={() => Promise.resolve({ ok: true, message: 'User removed' })} // Mock implementation
+              handleRetrieve={() => Promise.resolve({results: []})} // Mock implementation
+              handleCreateUser={() => Promise.resolve({ ok: true, message: 'User created' })} // Mock implementation
+              userRefetch={() => {}} // Mock implementation
+              onCreateUserClick={() => {}} // Mock implementation
+          />
+          <Login onLogin={handleLogin} />
+        </>} />
       <Route
         path="/dashboard"
         element={
@@ -37,6 +51,12 @@ const AppRoutes = () => {
               onLogout={handleLogout}
               onEditProfile={handleEditProfile}
               userRefetch={userRefetch}
+              onCreateUserClick={() => {}} // Mock implementation
+              allUsers={[]}
+              handleRetrieve={() => Promise.resolve({results: []})} // Mock implementation
+              handleRemove={() => Promise.resolve({ ok: true, message: 'User removed'})}
+              handleCreateUser={() => Promise.resolve({ ok: true, message: 'User created' })}
+
             />
           ) : (
             <Navigate to="/login" />
