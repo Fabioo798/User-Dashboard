@@ -4,13 +4,13 @@ import { Card, CardContent, Typography, Button, TextField, useMediaQuery, Snackb
 import { useTheme } from '@mui/material/styles';
 import ChevronRightRoundedIcon from '@mui/icons-material/ChevronRightRounded';
 import PersonRoundedIcon from '@mui/icons-material/PersonRounded';
-import { HighlightedCardProps } from '../interfaces';
+import { UserProfileCardProps } from '../interfaces';
 
 
 
 
 
-const UserProfileCard: React.FC<HighlightedCardProps> = ({ user, onEditProfile, userRefetch }) => {
+const UserProfileCard: React.FC<UserProfileCardProps> = ({ user, onEditProfile, userRefetch }) => {
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
   const [editMode, setEditMode] = useState<{ name: boolean; email: boolean }>({
