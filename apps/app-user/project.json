@@ -6,7 +6,7 @@
   "tags": [],
   "targets": {
     "build": {
-      "executor": "@nrwl/web:build",
+      "executor": "npx nx build app-user",
       "options": {
         "outputPath": "dist/apps/app-user",
         "index": "apps/app-user/src/index.html",
