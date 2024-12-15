@@ -1,0 +1,16 @@
+# Default build settings (optional)
+[build]
+  command = "npm install && npx nx build shared-ui && npx nx build app-user"
+  publish = "dist/apps/app-user"
+
+# Configuration for app-user
+[context.app-user]
+  base = "apps/app-user"
+  command = "npm install && npx nx build shared-ui && npx nx build app-user"
+  publish = "dist/apps/app-user"
+
+# Configuration for app-admin
+[context.app-admin]
+  base = "apps/app-admin"
+  command = "npm install && npx nx build shared-ui && npx nx build app-admin"
+  publish = "dist/apps/app-admin"
