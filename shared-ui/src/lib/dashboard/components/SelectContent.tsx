@@ -1,7 +1,8 @@
 import React from 'react';
 import { Box, Typography } from '@mui/material';
+import { SelectContentProps } from '../interfaces';
 
-const SelectContent = () => {
+const SelectContent: React.FC<SelectContentProps> = ({ user }) => {
   return (
     <Box
       sx={{
@@ -16,7 +17,7 @@ const SelectContent = () => {
         borderRadius: 1,
       }}
     >
-      <Typography variant="h6">User's Dashboard</Typography>
+      <Typography variant="h6">{user.role === 'admin' ? "Admin's Dashboard" : "User's DashBoard"} </Typography>
     </Box>
   );
 };

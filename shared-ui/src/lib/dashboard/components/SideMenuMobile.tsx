@@ -5,7 +5,7 @@ import { SideMenuMobileProps } from '../interfaces';
 
 
 
-export default function SideMenuMobile({ open, toggleDrawer, user, onLogout, onEditProfile }: SideMenuMobileProps) {
+export default function SideMenuMobile({ open, toggleDrawer, user, onLogout, onEditProfile, onCreateUserClick, onHomeClick }: SideMenuMobileProps) {
   return (
     <Drawer anchor="left" open={open} onClose={toggleDrawer(false)}>
       <Stack direction="row" sx={{ p: 2, pb: 0, gap: 1 }}>
@@ -26,7 +26,7 @@ export default function SideMenuMobile({ open, toggleDrawer, user, onLogout, onE
       </Stack>
       <Divider />
       <Stack sx={{ flexGrow: 1 }}>
-        <MenuContent />
+        <MenuContent user={user} onCreateUserClick={onCreateUserClick} onHomeClick={onHomeClick}/>
         <Divider />
       </Stack>
       <Stack sx={{ p: 2 }}>

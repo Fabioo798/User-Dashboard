@@ -31,7 +31,7 @@ const Toolbar = styled(MuiToolbar)({
 
 
 
-export default function AppNavbar({ user, onLogout, onEditProfile }: AppNavbarProps) {
+export default function AppNavbar({ user, onLogout, onEditProfile, onCreateUserClick, onHomeClick }: AppNavbarProps) {
   const [open, setOpen] = React.useState(false);
 
   const toggleDrawer = (newOpen: boolean) => () => {
@@ -75,7 +75,7 @@ export default function AppNavbar({ user, onLogout, onEditProfile }: AppNavbarPr
           <MenuButton aria-label="menu" onClick={toggleDrawer(true)}>
             <MenuRoundedIcon />
           </MenuButton>
-          <SideMenuMobile open={open} toggleDrawer={toggleDrawer} user={user} onLogout={onLogout} onEditProfile={onEditProfile} />
+          <SideMenuMobile open={open} toggleDrawer={toggleDrawer} user={user} onLogout={onLogout} onEditProfile={onEditProfile} onCreateUserClick={onCreateUserClick} onHomeClick={onHomeClick}/>
         </Stack>
       </Toolbar>
     </AppBar>

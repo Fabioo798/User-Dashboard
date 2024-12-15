@@ -14,7 +14,6 @@ const bootstrap = async () => {
     const userRouter = new UserRouter(userController);
 
     const server = new ExpressServer([userRouter]);
-
     server.start(4800)
 };
 

@@ -44,63 +44,86 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
 
 
   const handleCloseSnackbar = () => {
-    setSnackbarOpen(false);
-  };
-
-  return (
-    <AppTheme >
-      <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
-        <Card sx={{ width: isSmallScreen ? '100%' : '400px' }}>
-          <CardContent>
-            <Typography variant="h4" gutterBottom>
-              Login
-            </Typography>
-            <form onSubmit={handleSubmit(onSubmit)}>
-              <TextField
-                {...register('email', { required: 'Email is required',
-                   pattern: {
-                  value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                  message: 'Invalid email address'
-                } })}
-                label="Email"
-                fullWidth
-                margin="normal"
-                error={!!errors.email}
-                helperText={errors.email?.message}
-
-              />
-              <TextField
-                {...register('password', { required: 'Password is required'
-                //   ,minLength: {
-                //   value: 8,
-                //   message: 'Password must be at least 8 characters long'
-                // },
-                // pattern: {
-                //   value: /^(?=.*[0-9]).*$/,
-                //   message: 'Password must contain at least one number'
-                // }
-                 })}
-                label="Password"
-                type="password"
-                fullWidth
-                margin="normal"
-                error={!!errors.password}
-                helperText={errors.password?.message}
-              />
-              <Button type="submit" variant="contained" color="primary" fullWidth>
-                Login
-              </Button>
-            </form>
-          </CardContent>
-        </Card>
-        <Snackbar open={snackbarOpen} autoHideDuration={6000} onClose={handleCloseSnackbar}>
-          <Alert onClose={handleCloseSnackbar} severity={snackbarSeverity} sx={{ width: '100%' }}>
-            {snackbarMessage}
-          </Alert>
-        </Snackbar>
-      </Box>
-    </AppTheme>
-  );
+  setSnackbarOpen(false);
 };
 
-export default Login;
+return (
+  <Box
+    sx={{
+      position: 'fixed',
+      top: 0,
+      left: 0,
+      width: '100vw',
+      height: '100vh',
+      backgroundColor: 'rgba(0, 0, 0, 0.5)',
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      backdropFilter: 'blur(5px)',
+      zIndex: 9999,
+    }}
+  >
+    <Box
+      sx={{
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        width: '100%',
+        height: '100%',
+        zIndex: 1,
+      }}
+    />
+    <Box
+      sx={{
+        position: 'relative',
+        zIndex: 2,
+        width: isSmallScreen ? '90%' : '400px',
+        backgroundColor: 'rgba(255, 255, 255, 0.8)',
+        backdropFilter: 'blur(10px)',
+        padding: theme.spacing(4),
+        borderRadius: theme.shape.borderRadius,
+        boxShadow: theme.shadows[5],
+      }}
+    >
+      <Typography component="h1" variant="h5" sx={{ mb: 2 }}>
+        Login
+      </Typography>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <TextField
+          {...register('email', {
+            required: 'Email is required',
+            pattern: {
+              value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+              message: 'Invalid email address',
+            },
+          })}
+          label="Email"
+          fullWidth
+          margin="normal"
+          error={!!errors.email}
+          helperText={errors.email?.message}
+        />
+        <TextField
+          {...register('password', { required: 'Password is required' })}
+          label="Password"
+          type="password"
+          fullWidth
+          margin="normal"
+          error={!!errors.password}
+          helperText={errors.password?.message}
+        />
+        <Button type="submit" variant="contained" color="primary" fullWidth sx={{ mt: 2 }}>
+          Login
+        </Button>
+      </form>
+      <Snackbar open={snackbarOpen} autoHideDuration={6000} onClose={handleCloseSnackbar}>
+        <Alert onClose={handleCloseSnackbar} severity={snackbarSeverity} sx={{ width: '100%' }}>
+          {snackbarMessage}
+        </Alert>
+      </Snackbar>
+    </Box>
+  </Box>
+);
+}
+
+export default Login

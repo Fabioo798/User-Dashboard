@@ -1,7 +1,10 @@
 {
   "$schema": "./node_modules/nx/schemas/nx-schema.json",
   "namedInputs": {
-    "default": ["{projectRoot}/**/*", "sharedGlobals"],
+    "default": [
+      "{projectRoot}/**/*",
+      "sharedGlobals"
+    ],
     "production": [
       "default",
       "!{projectRoot}/**/?(*.)+(spec|test).[jt]s?(x)?(.snap)",
@@ -12,7 +15,9 @@
       "!{projectRoot}/jest.config.[jt]s",
       "!{projectRoot}/test-setup.[jt]s"
     ],
-    "sharedGlobals": ["{workspaceRoot}/.github/workflows/ci.yml"]
+    "sharedGlobals": [
+      "{workspaceRoot}/.github/workflows/ci.yml"
+    ]
   },
   "nxCloudId": "6758cd7a415049678270a8f1",
   "plugins": [
@@ -38,7 +43,9 @@
       "options": {
         "targetName": "test"
       },
-      "exclude": ["apps/api-e2e/**/*"]
+      "exclude": [
+        "apps/api-e2e/**/*"
+      ]
     },
     {
       "plugin": "@nx/webpack/plugin",
@@ -46,6 +53,13 @@
         "buildTargetName": "build",
         "serveTargetName": "serve",
         "previewTargetName": "preview"
+      }
+    },
+    {
+      "plugin": "@nx-tools/nx-container",
+      "options": {
+        "defaultEngine": "docker",
+        "defaultRegistry": "docker.io"
       }
     }
   ],

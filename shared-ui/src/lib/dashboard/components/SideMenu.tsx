@@ -24,7 +24,7 @@ const Drawer = styled(MuiDrawer)({
   },
 });
 
-export default function SideMenu({ user, onLogout }: SideMenuProps) {
+export default function SideMenu({ user, onLogout, onCreateUserClick, onHomeClick }: SideMenuProps) {
   return (
     <Drawer
       variant="permanent"
@@ -42,10 +42,10 @@ export default function SideMenu({ user, onLogout }: SideMenuProps) {
           p: 1.5,
         }}
       >
-        <SelectContent />
+        <SelectContent user={user}/>
       </Box>
       <Divider />
-      <MenuContent />
+      <MenuContent user={user} onCreateUserClick={onCreateUserClick} onHomeClick={onHomeClick} />
       <Stack
         direction="row"
         sx={{
