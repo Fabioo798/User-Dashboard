@@ -4,6 +4,45 @@
   "sourceRoot": "apps/app-user/src",
   "projectType": "application",
   "tags": [],
-  "// targets": "to see all targets run: nx show project app-user --web",
-  "targets": {}
+  "targets": {
+    "build": {
+      "executor": "@nrwl/web:build",
+      "options": {
+        "outputPath": "dist/apps/app-user",
+        "index": "apps/app-user/src/index.html",
+        "main": "apps/app-user/src/main.ts",
+        "polyfills": "apps/app-user/src/polyfills.ts",
+        "tsConfig": "apps/app-user/tsconfig.app.json",
+        "assets": ["apps/app-user/src/favicon.ico", "apps/app-user/src/assets"],
+        "styles": ["apps/app-user/src/styles.css"],
+        "scripts": []
+      },
+      "configurations": {
+        "production": {
+          "fileReplacements": [
+            {
+              "replace": "apps/app-user/src/environments/environment.ts",
+              "with": "apps/app-user/src/environments/environment.prod.ts"
+            }
+          ],
+          "optimization": true,
+          "outputHashing": "all",
+          "sourceMap": false,
+          "extractCss": true,
+          "namedChunks": false,
+          "aot": true,
+          "extractLicenses": true,
+          "vendorChunk": false,
+          "buildOptimizer": true,
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "2mb",
+              "maximumError": "5mb"
+            }
+          ]
+        }
+      }
+    }
+  }
 }
