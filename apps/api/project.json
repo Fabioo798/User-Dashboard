@@ -32,7 +32,7 @@
       },
       "configurations": {
         "development": {
-          "optimization": false,
+          "optimization": true,
           "sourceMap": true
         },
         "production": {
@@ -57,7 +57,8 @@
         "production": {
           "buildTarget": "api:build:production"
         }
-      }
+      },
+      "port" : 4800
     }
   }
 }

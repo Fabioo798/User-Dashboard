@@ -4,7 +4,7 @@
   "license": "MIT",
   "scripts": {
     "build:app-user": "npm --prefix app-user run build",
-    "build-app-admin": "npm --prefix app-admin run build",
+    "build:app-admin": "npm --prefix app-admin run build",
     "start": "cross-env PORT=4800 node ./dist/apps/api/src/main.js"
   },
   "private": true,
@@ -21,7 +21,6 @@
     "@mui/x-date-pickers-pro": "^7.23.2",
     "@mui/x-tree-view": "^7.23.2",
     "@nrwl/express": "^19.8.4",
-    "@nrwl/react": "^19.8.4",
     "@reduxjs/toolkit": "^2.5.0",
     "@tanstack/react-query": "^5.62.7",
     "@types/jwt-decode": "^2.2.1",
@@ -48,6 +47,9 @@
     "@babel/core": "^7.14.5",
     "@babel/preset-react": "^7.14.5",
     "@eslint/js": "^9.8.0",
+    "@nrwl/react": "^19.8.4",
+    "@nrwl/web": "^19.8.4",
+    "@nrwl/workspace": "^19.8.4",
     "@nx-tools/nx-container": "^6.2.0",
     "@nx/eslint": "20.2.2",
     "@nx/eslint-plugin": "20.2.2",
