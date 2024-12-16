@@ -31,33 +31,24 @@
         ]
       },
       "configurations": {
-        "development": {
-          "optimization": false,
-          "sourceMap": true
-        },
         "production": {
           "optimization": true,
-          "sourceMap": false
+          "sourceMap": false,
+          "extractLicenses": true,
+          "inspect": false,
+          "fileReplacements": [
+            {
+              "replace": "apps/api/src/environments/environment.ts",
+              "with": "apps/api/src/environments/environment.prod.ts"
+            }
+          ]
         }
       }
     },
     "serve": {
-      "executor": "@nx/js:node",
-      "defaultConfiguration": "development",
-      "dependsOn": ["build"],
+      "executor": "@nrwl/workspace:run-commands",
       "options": {
-        "buildTarget": "api:build",
-        "runBuildTargetDependencies": false,
-        "port": 4800
-      },
-      "configurations": {
-        "development": {
-          "buildTarget": "api:build:development"
-
-        },
-        "production": {
-          "buildTarget": "api:build:production"
-        }
+        "command": "cross-env NODE_ENV=production PORT=4800 node dist/apps/api/src/main.js"
       }
     }
   }
