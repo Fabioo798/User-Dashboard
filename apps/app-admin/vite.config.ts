@@ -7,7 +7,7 @@ import path from 'path';
 
 export default defineConfig({
   root: __dirname,
-  cacheDir: '../node_modules/.vite/app-admin',
+  cacheDir: '../node_modules/.vite/apps/app-admin',
   server: {
     port: 4500,
     host: 'localhost',
@@ -23,7 +23,7 @@ export default defineConfig({
         '@shared-ui': path.resolve(__dirname, '../../libs/shared-ui/src'),
       },
     },
-    
+
   build: {
     outDir: '../../dist/apps/app-admin',
     emptyOutDir: true,
