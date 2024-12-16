@@ -1,28 +1,4 @@
 # Custom build settings based on environment variable
 [build]
-  command = """
-    if [ \"$APP_CONTEXT\" = \"app-admin\" ]; then
-      npm install && npx nx build shared-ui && npx nx build app-admin;
-    else
-      npm install && npx nx build shared-ui && npx nx build app-user;
-    fi
-  """
-  publish = """
-    if [ \"$APP_CONTEXT\" = \"app-admin\" ]; then
-      dist/apps/app-admin;
-    else
-      dist/apps/app-user;
-    fi
-  """
-
-# Configuration for app-user
-[context.app-user]
-  base = "apps/app-user"
-  command = "npm install && npx nx build shared-ui && npx nx build app-user"
-  publish = "dist/apps/app-user"
-
-# Configuration for app-admin
-[context.app-admin]
-  base = "apps/app-admin"
-  command = "npm install && npx nx build shared-ui && npx nx build app-admin"
-  publish = "dist/apps/app-admin"
+  command = "npm install && npx nx build shared-ui && npx nx build $APP_CONTEXT"
+  publish = "dist/apps/$APP_CONTEXT"
