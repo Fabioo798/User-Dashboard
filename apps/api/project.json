@@ -25,7 +25,7 @@
           },
           {
             "glob": ".env",
-            "input": "apps/api/src",
+            "input": "apps/api",
             "output": "."
           }
         ]
@@ -43,7 +43,7 @@
     },
     "serve": {
       "executor": "@nx/js:node",
-      "defaultConfiguration": "development",
+      "defaultConfiguration": "production",
       "dependsOn": ["build"],
       "options": {
         "buildTarget": "api:build",
