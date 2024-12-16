@@ -25,7 +25,7 @@ export default defineConfig({
     },
 
   build: {
-    outDir: '../../dist/apps/app-admin',
+    outDir: 'dist/apps/app-admin',
     emptyOutDir: true,
     reportCompressedSize: true,
     commonjsOptions: {
