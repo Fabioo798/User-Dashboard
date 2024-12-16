@@ -7,7 +7,7 @@ import path from 'path';
 
 export default defineConfig({
   root: __dirname,
-  cacheDir: '../node_modules/.vite/apps/app-admin',
+  cacheDir: '../../node_modules/.vite/apps/app-admin',
   server: {
     port: 4500,
     host: 'localhost',
@@ -25,7 +25,7 @@ export default defineConfig({
     },
 
   build: {
-    outDir: 'dist/apps/app-admin',
+    outDir: '../../dist/apps/app-admin',
     emptyOutDir: true,
     reportCompressedSize: true,
     commonjsOptions: {
