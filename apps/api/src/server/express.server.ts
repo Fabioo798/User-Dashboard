@@ -17,7 +17,6 @@ const routes = [
   { endpoint: '/users/search/user', method: 'GET' },
 ];
 
-const PORT = process.env.PORT || 4800;
 
 export default class ExpressServer {
   app: Express;
@@ -48,7 +47,7 @@ export default class ExpressServer {
     this.app.use(errorMiddleware);
   }
 
-  start(PORT: number): void {
+  start(PORT = process.env.PORT): void {
     this.app.listen(PORT, () => {
       debug(`Server running on port ${PORT}`);
     });
