@@ -39,8 +39,7 @@
           "optimization": true,
           "sourceMap": false
         }
-      },
-      "port": 4800
+      }
     },
     "serve": {
       "executor": "@nx/js:node",
@@ -52,16 +51,12 @@
       },
       "configurations": {
         "development": {
-          "buildTarget": "api:build:development",
-          "port": 4800
-
+          "buildTarget": "api:build:development"
         },
         "production": {
-          "buildTarget": "api:build:production",
-          "port": 4800
+          "buildTarget": "api:build:production"
         }
-      },
-      "port" : 4800
+      }
     }
   }
 }

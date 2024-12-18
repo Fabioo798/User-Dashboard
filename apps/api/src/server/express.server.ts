@@ -17,6 +17,25 @@ const routes = [
   { endpoint: '/users/search/user', method: 'GET' },
 ];
 
+const allowedOrigins = [
+  'https://admins-dashboard2.netlify.app',
+  'https://users-dashboard2.netlify.app',
+  'http://localhost:4500',
+  'http://localhost:4200'
+];
+
+const corsOptions = {
+  origin(origin: string | undefined, callback: (err: Error | null, origin?: boolean) => void) {
+    console.log('Request Origin:', origin); // Log the origin of the request
+    if (!origin || allowedOrigins.includes(origin) || process.env.NODE_ENV !== 'production') {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true,
+};
+
 
 export default class ExpressServer {
   app: Express;
@@ -30,7 +49,11 @@ export default class ExpressServer {
 
   config(): void {
     this.app.use(express.json());
-    this.app.use(cors({ origin: '*' }));
+    this.app.use(cors(corsOptions)); // Use the CORS options
+    this.app.use((req, res, next) => {
+      console.log(`CORS headers set for origin: ${req.headers.origin}`);
+      next();
+    });
   }
 
   routes(): void {
@@ -48,7 +71,7 @@ export default class ExpressServer {
   }
 
   start(PORT = process.env.PORT): void {
-    this.app.listen(PORT, () => {
+    this.app.listen(Number(PORT), '0.0.0.0', () => {
       debug(`Server running on port ${PORT}`);
     });
 
