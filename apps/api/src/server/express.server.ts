@@ -71,7 +71,7 @@ export default class ExpressServer {
   }
 
   start(PORT = process.env.PORT): void {
-    this.app.listen(Number(PORT), '0.0.0.0', () => {
+    this.app.listen(PORT, () => {
       debug(`Server running on port ${PORT}`);
     });
 
