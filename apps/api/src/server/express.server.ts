@@ -39,6 +39,7 @@ const corsOptions = {
 
 export default class ExpressServer {
   app: Express;
+  port = process.env.PORT || 4000;
 
   constructor(private routers: ServerRouter[]) {
     this.app = express();
@@ -70,9 +71,11 @@ export default class ExpressServer {
     this.app.use(errorMiddleware);
   }
 
-  start(PORT = parseInt(process.env.PORT || '4800', 10)): void {
-    this.app.listen(PORT, '0.0.0.0', () => {
-      debug(`Server running on port ${PORT}`);
+  start(port): void {
+  console.log(port)
+    this.app.listen(port, '0.0.0.0', () => {
+      console.log(`Server running on port ${port}`);
+      debug(`Server running on port ${port}`);
     });
 
     db.raw('SELECT 1')
