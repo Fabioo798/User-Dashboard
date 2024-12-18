@@ -54,7 +54,8 @@
           "buildTarget": "api:build:development"
         },
         "production": {
-          "buildTarget": "api:build:production"
+          "buildTarget": "api:build:production",
+          "port": "0.0.0.0:4800"
         }
       }
     }
