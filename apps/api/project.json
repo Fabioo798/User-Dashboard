@@ -44,21 +44,20 @@
     "serve": {
       "executor": "@nx/js:node",
       "defaultConfiguration": "production",
-      "dependsOn": ["build"],
       "options": {
-        "buildTarget": "api:build",
         "runBuildTargetDependencies": false
       },
       "configurations": {
         "development": {
           "buildTarget": "api:build:development"
-
         },
         "production": {
-          "buildTarget": "api:build:production"
+          "buildTarget": "api:build:production",
+          "inspect": false,
+          "watch": false
         }
       },
-      "port" : 4800
+      "watch": false
     }
   }
 }

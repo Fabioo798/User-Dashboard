@@ -17,10 +17,29 @@ const routes = [
   { endpoint: '/users/search/user', method: 'GET' },
 ];
 
-const PORT = process.env.PORT || 4800;
+const allowedOrigins = [
+  'https://admins-dashboard2.netlify.app',
+  'https://users-dashboard2.netlify.app',
+  'http://localhost:4500',
+  'http://localhost:4200'
+];
+
+const corsOptions = {
+  origin(origin: string | undefined, callback: (err: Error | null, origin?: boolean) => void) {
+    console.log('Request Origin:', origin); // Log the origin of the request
+    if (!origin || allowedOrigins.includes(origin) || process.env.NODE_ENV !== 'production') {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true,
+};
+
 
 export default class ExpressServer {
   app: Express;
+  port = process.env.PORT || 4000;
 
   constructor(private routers: ServerRouter[]) {
     this.app = express();
@@ -31,7 +50,11 @@ export default class ExpressServer {
 
   config(): void {
     this.app.use(express.json());
-    this.app.use(cors({ origin: '*' }));
+    this.app.use(cors(corsOptions)); // Use the CORS options
+    this.app.use((req, res, next) => {
+      console.log(`CORS headers set for origin: ${req.headers.origin}`);
+      next();
+    });
   }
 
   routes(): void {
@@ -48,9 +71,11 @@ export default class ExpressServer {
     this.app.use(errorMiddleware);
   }
 
-  start(PORT: number): void {
-    this.app.listen(PORT, () => {
-      debug(`Server running on port ${PORT}`);
+  start(port): void {
+  console.log(port)
+    this.app.listen(port, '0.0.0.0', () => {
+      console.log(`Server running on port ${port}`);
+      debug(`Server running on port ${port}`);
     });
 
     db.raw('SELECT 1')
