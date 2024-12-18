@@ -70,8 +70,8 @@ export default class ExpressServer {
     this.app.use(errorMiddleware);
   }
 
-  start(PORT = process.env.PORT): void {
-    this.app.listen(PORT, () => {
+  start(PORT = parseInt(process.env.PORT || '4800', 10)): void {
+    this.app.listen(PORT, '0.0.0.0', () => {
       debug(`Server running on port ${PORT}`);
     });
 
