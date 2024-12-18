@@ -5,7 +5,7 @@
   "scripts": {
     "build:app-user": "npm --prefix app-user run build",
     "build:app-admin": "npm --prefix app-admin run build",
-    "serve:api:prod": "node node_modules/nx/bin/nx serve api"
+    "serve:api:prod": "cross-env PORT=4900 node node_modules/nx/bin/nx serve api"
   },
   "private": true,
   "dependencies": {
