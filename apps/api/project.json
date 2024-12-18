@@ -44,9 +44,7 @@
     "serve": {
       "executor": "@nx/js:node",
       "defaultConfiguration": "production",
-      "dependsOn": ["build"],
       "options": {
-        "buildTarget": "api:build",
         "runBuildTargetDependencies": false
       },
       "configurations": {
