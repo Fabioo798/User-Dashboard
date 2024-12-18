@@ -52,9 +52,12 @@
           "buildTarget": "api:build:development"
         },
         "production": {
-          "buildTarget": "api:build:production"
+          "buildTarget": "api:build:production",
+          "inspect": false,
+          "watch": false
         }
-      }
+      },
+      "watch": false
     }
   }
 }
