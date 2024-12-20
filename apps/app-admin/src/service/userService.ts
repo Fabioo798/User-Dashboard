@@ -41,13 +41,16 @@ export const useUpdateProfile = () =>
     },
   });
 
-export const useFetchAllUsers = (token: string) =>
+export const useFetchAllUsers = (token: string | null) =>
   useQuery({
     queryKey: ['allUsers'],
     queryFn: async () => {
-      const { data } = await apiClient.get('/',);
+      const { data } = await apiClient.get('/');
       return data;
-    },  });
+    },
+    retry: false, // Disable retrying the query on failure
+    enabled: token === '' && token.trim().length > 0, // Ensure the query only runs if `token` is not null and not empty
+  });
 
 export const useDeleteUser = () =>
   useMutation({

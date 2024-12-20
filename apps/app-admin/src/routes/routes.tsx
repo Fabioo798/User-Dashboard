@@ -22,7 +22,6 @@ const AppRoutes = () => {
 
   const handleLogout = () => {
     dispatch(logout());
-    // Navigate to login page or handle logout logic
   };
 
   const onCreateUserClick= () => {
