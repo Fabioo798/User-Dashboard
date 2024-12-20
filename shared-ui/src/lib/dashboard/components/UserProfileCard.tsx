@@ -17,22 +17,32 @@ const UserProfileCard: React.FC<UserProfileCardProps> = ({ user, onEditProfile, 
     name: false,
     email: false,
   });
-  const [updatedUser, setUpdatedUser] = useState(user);
+  const [updatedUser, setUpdatedUser] = useState({...user, id: user.id} );
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState('');
   const [snackbarSeverity, setSnackbarSeverity] = useState<'success' | 'error'>('success');
 
   const handleEdit = (field: 'name' | 'email') => {
-    setEditMode((prev) => ({ ...prev, [field]: !prev[field] }));
+    setUpdatedUser((prev) => ({
+        ...prev,
+        id: user.id,
+        name: user.name,
+        email: user.email
+      }
+    ));
+      setEditMode((prev) => ({ ...prev, [field]: !prev[field] }));
   };
 
   const handleChange = (field: 'name' | 'email') => (event: React.ChangeEvent<HTMLInputElement>) => {
-    setUpdatedUser({ ...updatedUser, [field]: event.target.value });
-  };
+  const value = event.target.value;
+  setUpdatedUser((prev) => ({ ...prev, [field]: value !== '' ? value : user[field] }));
+};
 
   const handleSave = async () => {
     try {
-      const response = await onEditProfile(updatedUser);
+      const userToUpdate = { ...updatedUser, id: user.id };
+      console.log(userToUpdate)
+      const response = await onEditProfile(userToUpdate);
       if(response.ok){
       setSnackbarMessage('Profile updated successfully!');
       setSnackbarSeverity('success');
@@ -64,7 +74,7 @@ const UserProfileCard: React.FC<UserProfileCardProps> = ({ user, onEditProfile, 
         </Typography>
         {editMode.name ? (
           <TextField
-            value={updatedUser.name}
+            value={updatedUser.name || user.name}
             onChange={handleChange('name')}
             label="Name"
             fullWidth
@@ -77,7 +87,7 @@ const UserProfileCard: React.FC<UserProfileCardProps> = ({ user, onEditProfile, 
         )}
         {editMode.email ? (
           <TextField
-            value={updatedUser.email}
+            value={updatedUser.email || user.email}
             onChange={handleChange('email')}
             label="Email"
             fullWidth
