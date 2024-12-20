@@ -20,6 +20,13 @@
     ]
   },
   "nxCloudId": "6758cd7a415049678270a8f1",
+  "targetDefaults": {
+    "@nx/esbuild:esbuild": {
+      "cache": true,
+      "dependsOn": ["^build"],
+      "inputs": ["production", "^production"]
+    }
+  },
   "plugins": [
     {
       "plugin": "@nx/vite/plugin",

@@ -1,7 +1,7 @@
 {
   "extends": "../../tsconfig.base.json",
   "files": [],
-  "include": ["src/**/*.ts", "express.server"],
+  "include": [],
   "references": [
     {
       "path": "./tsconfig.app.json"
