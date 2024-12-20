@@ -113,7 +113,7 @@ export default class ExpressServer {
 
 
   async createInitialUser() {
-    const hashedPassword = await Auth.hash('password1');
+    const hashedPassword = await Auth.hash('password1'); // Implement a env variable for the password
     await db('users').insert({
       name: 'Admin User',
       email: 'admin@example.com',

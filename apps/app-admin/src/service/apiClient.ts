@@ -2,7 +2,7 @@ import axios from "axios";
 import { store } from "../store/store";
 
 
-const apiClient = axios.create({ baseURL: 'http://127.0.0.1:4900/users' }); // Fixed the URL format
+const apiClient = axios.create({ baseURL: 'https://user-dashboard-api-latest.onrender.com/users' }); // Fixed the URL format
 
 apiClient.interceptors.request.use((config) => {
   const state = store.getState();
