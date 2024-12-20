@@ -14,7 +14,7 @@ const bootstrap = async () => {
     const userRouter = new UserRouter(userController);
 
     const server = new ExpressServer([userRouter]);
-    server.start(parseInt(process.env.PORT || '4800', 10));
+    server.start(4900);
 };
 
 bootstrap();

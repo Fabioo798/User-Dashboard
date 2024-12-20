@@ -3,6 +3,9 @@ import cors from 'cors';
 import ServerRouter, { db } from '../shared/interfaces/interfaces.js';
 import createDebug from 'debug';
 import { errorMiddleware } from '../middlewares/error.middleware.js';
+import * as dotenv from 'dotenv';
+
+dotenv.config();
 
 const debug = createDebug('App:ExpressServer');
 
@@ -39,7 +42,7 @@ const corsOptions = {
 
 export default class ExpressServer {
   app: Express;
-  port = process.env.PORT || 4000;
+  PORT = process.env.PORT || 4000;
 
   constructor(private routers: ServerRouter[]) {
     this.app = express();
@@ -71,11 +74,11 @@ export default class ExpressServer {
     this.app.use(errorMiddleware);
   }
 
-  start(port): void {
-  console.log(port)
-    this.app.listen(port, '0.0.0.0', () => {
-      console.log(`Server running on port ${port}`);
-      debug(`Server running on port ${port}`);
+  start(PORT = parseInt(process.env.PORT)): void {
+  console.log(PORT)
+    this.app.listen(PORT, () => {
+      console.log(`Server running on port ${PORT}`);
+      debug(`Server running on port ${PORT}`);
     });
 
     db.raw('SELECT 1')
@@ -84,8 +87,9 @@ export default class ExpressServer {
         debug('Database connection successful');
       })
       .catch((error) => {
-        console.error('Database connection failed', error);
-        debug('Database connection failed', error);
+        console.error('Database connection failed 1', error);
+        debug('Database connection failed 2', error);
+
         process.exit(1);
       });
   }
