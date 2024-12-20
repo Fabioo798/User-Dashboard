@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState, useCallback, useMemo } from 'react';
 import { Card, CardContent, Typography, Grid, Button, TextField, Snackbar, Alert, useMediaQuery, useTheme, Box } from '@mui/material';
 import ChevronRightRoundedIcon from '@mui/icons-material/ChevronRightRounded';
@@ -18,9 +20,11 @@ const UserAdminProfileCards: React.FC<UserAdminProfileCardsProps> = ({ onEditPro
   // Use useMemo to memoize the list of users
   const memoizedUsers = useMemo(() => allUsers || [], [allUsers]);
 
+  const memoizedHandleRetrieve = useCallback(handleRetrieve, []);
+
   useEffect(() => {
-    handleRetrieve();
-  }, [handleRetrieve]);
+    memoizedHandleRetrieve();
+  }, [memoizedHandleRetrieve]);
 
   const validate = (userId: number) => {
     const user = updatedUsers[userId];

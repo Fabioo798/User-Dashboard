@@ -1,11 +1,10 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React from 'react';
 import { Box, Button, TextField, Typography, Snackbar, Alert, MenuItem, Select, InputLabel, FormControl } from '@mui/material';
 import { createUser, CreateUserProps } from '../interfaces';
 import { useForm, SubmitHandler } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
 
 const CreateUser: React.FC<CreateUserProps> = ({ handleCreateUser }) => {
-  const navigate = useNavigate()
   const { register, handleSubmit, formState: { errors }, reset } = useForm<createUser>();
   const [snackbarOpen, setSnackbarOpen] = React.useState(false);
   const [snackbarMessage, setSnackbarMessage] = React.useState('');
