@@ -3,26 +3,19 @@ version: '3.8'
 services:
   api:
     container_name: api
-    environment:
-      - JWT_SECRET=random_secret
-      - SALT_ROUNDS=10
-      - DATABASE_PATH="C:/Users/Fabio/OneDrive - students.uninettunouniversity.net/Documenti/Project1/User-dashboard/user-dashboard/apps/api/src/db/dev.sqlite3"
-      - SEEDS_PATH="C:/Users/Fabio/OneDrive - students.uninettunouniversity.net/Documenti/Project1/User-dashboard/user-dashboard/apps/api/src/db/seeds"
-      - MIGRATION_PATH="C:/Users/Fabio/OneDrive - students.uninettunouniversity.net/Documenti/Project1/User-dashboard/user-dashboard/apps/api/src/db/migrations"
-    image: api
-    networks:
-      - app-network
-    ports:
-     - "4800:4800"
-    restart: always
-
-  app1:
-    container_name: app1
+    build:
+      context: ./
+      dockerfile: Dockerfile
     environment:
       - NODE_ENV=development
-    image: app1
-    networks:
-      - app-network
+      - JWT_SECRET=random_secret
+      - SALT_ROUNDS=10
+      - DATABASE_PATH="db/dev.sqlite3"
+      - SEEDS_PATH="db/seeds"
+      - MIGRATION_PATH="db/migrations"
+    volumes:
+      - ./apps/api/src/db/dev.sqlite3:/usr/src/app/db/dev.sqlite3
+    image: api
     ports:
-      - "5000:5000"
+     - "4800:4800"
     restart: always

@@ -1,6 +1,6 @@
 import { useDispatch } from 'react-redux';
 import { editProfile } from '../store/authSlice';
-import { useUpdateProfile } from '../service/userService';
+import { useUpdateProfile, useFetchProfile } from '../service/userService';
 
 export const useHandleEditProfile = () => {
   const dispatch = useDispatch();

@@ -121,7 +121,10 @@ Make sure you have the following installed:
 
 ### Deployment
 
-Deployment is currently in progress. The app-user frontend is deployed on Netlify and can be accessed here <https://users-dashboard2.netlify.app/> . Deployment of the app-admin frontend and the backend is ongoing.
+-Admin's dashboard<https://admins-dashboard2.netlify.app/>
+-User's dashboard<https://users-dashboard2.netlify.app/>
+-API its not deployed yet but you can pull the image from :
+docker pull fabio798/fabio798/user-dashboard-api:latest
 
 ---
 
@@ -137,3 +140,65 @@ Deployment is currently in progress. The app-user frontend is deployed on Netlif
 ---
 
 We welcome contributions and feedback! Feel free to open an issue or submit a pull request if you have suggestions or improvements.
+
+## ERROR SECTION
+
+### ⚠️ Errors Encountered and Solutions
+
+During the development of this project, several challenges arose, each of which provided valuable learning opportunities. Below is a detailed account of the errors encountered and how they were addressed:
+
+### 🛠 Module Not Found Errors
+
+Several critical files were not being resolved correctly due to incorrect file paths:
+
+Error: Can't resolve './server/express.server.js'
+Error: Can't resolve './user/application/userService.js'
+
+As well as:
+
+Error: Database connection failed.
+
+Cause:
+These errors occurred due to incorrect compilation from ts to js and relative paths in the imports, sqlite path was as well a problem in deployment phase.
+Solution:
+Verified the file structure and updated all import paths to reflect the correct directory, for sqlite create a volume and with the db inside
+
+### 🔗 Port Binding Issue
+
+Error:
+Timed out: Port scan timeout reached, no open ports detected on 0.0.0.0. Detected open ports on localhost -- did you mean to bind one of these to 0.0.0.0?
+Cause:
+Render was trying to bind to an unavailable or incorrect port.
+Solution:
+After 2 days of debug i couldn't get a solution to make render work with my nx api project.
+
+### 🔄 Multiple Calls to useFetchAllUsers
+
+Issue:
+The useFetchAllUsers hook was being triggered multiple times, leading to unnecessary API requests.
+Cause:
+React's re-renders were causing the hook to be invoked multiple times.
+Solution:
+Implemented useEffect with proper dependency arrays and introduced memoization techniques to prevent redundant calls.
+
+### 🚧 CORS Policy Error
+
+Error:
+Access to XMLHttpRequest at 'backend url' from origin 'https://admins-dashboard2.netlify.app' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+Cause:
+Missing Access-Control-Allow-Origin header in the server's response.
+Solution:
+Configured the backend to include the appropriate CORS headers, allowing requests from the frontend's origin.
+
+### 🐳 Dockerfile Configuration Issues
+
+Error:
+Docker build and runtime issues due to misconfigured Dockerfile.
+Cause:
+Missing or incorrect instructions in the Dockerfile.
+Solution:
+Revised the Dockerfile with the following changes:
+Specified the correct base image.
+Added necessary environment variables.
+Fixed the build context and ensured all required files were included.
+

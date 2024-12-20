@@ -5,7 +5,7 @@ import { onRetriEveResponse } from '../interfaces';
 
 export const useHandleRetrieve = () => {
   const dispatch = useDispatch();
-  const { data, refetch } = useFetchAllUsers('your-token-here');
+  const { data, refetch } = useFetchAllUsers('');
 
   const handleRetrieve = async (): Promise<onRetriEveResponse> => {
     try {

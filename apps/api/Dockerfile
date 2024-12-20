@@ -1,22 +1,23 @@
-# Use the official Node.js image as the base image
-FROM node:14
+FROM docker.io/node:lts-alpine
 
-# Set the working directory
-WORKDIR ./
+ENV HOST=0.0.0.0
+ENV PORT=4900
+ENV DATABASE_PATH=/app/db/dev.sqlite3
+ENV JWT_SECRET=random_secret
+ENV SALT_ROUNDS=10
 
-# Copy package.json and package-lock.json
-COPY ../../package*.json ./
 
-# Install dependencies
-RUN npm install
+WORKDIR /app
 
-# Copy the rest of the application code
-COPY . .
+RUN addgroup --system api && \
+          adduser --system -G api api
 
-RUN npx nx build api
+COPY dist/apps/api api/
+RUN chown -R api:api .
+RUN npm install sqlite3 --save
+# You can remove this install step if you build with `--bundle` option.
+# The bundled output will include external dependencies.
+RUN npm --prefix api --omit=dev -f install
+VOLUME [ "/etc/data" ]
 
-# Expose the port the app runs on
-EXPOSE 4800
-
-# Start the application
-CMD ["npm", "start", "node", "main.js", "serve", "api"]
+CMD [ "node", "api" ]

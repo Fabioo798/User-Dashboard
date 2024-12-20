@@ -13,20 +13,14 @@ const UserAdminProfileCards: React.FC<UserAdminProfileCardsProps> = ({ onEditPro
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState('');
   const [snackbarSeverity, setSnackbarSeverity] = useState<'success' | 'error'>('success');
-  const [users, setUsers] = useState<User[]>(allUsers);
   const [errors, setErrors] = useState<{ [key: number]: { name?: string; email?: string } }>({});
-
-  // Memoize handleRetrieve to prevent it from being recreated on every render
-  const memoizedHandleRetrieve = useCallback(() => {
-    handleRetrieve();
-  }, [handleRetrieve]);
 
   // Use useMemo to memoize the list of users
   const memoizedUsers = useMemo(() => allUsers || [], [allUsers]);
 
   useEffect(() => {
-    memoizedHandleRetrieve();
-  }, [memoizedHandleRetrieve]);
+    handleRetrieve();
+  }, [handleRetrieve]);
 
   const validate = (userId: number) => {
     const user = updatedUsers[userId];

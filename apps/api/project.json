@@ -6,44 +6,41 @@
   "tags": [],
   "targets": {
     "build": {
-      "executor": "@nx/js:tsc",
+      "executor": "@nx/esbuild:esbuild",
       "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
       "options": {
+        "platform": "node",
         "outputPath": "dist/apps/api",
+        "format": ["cjs"],
+        "bundle": false,
         "main": "apps/api/src/main.ts",
-        "tsConfig": "apps/api/tsconfig.json",
-        "assets": [
-          {
-            "glob": "**/*",
-            "input": "apps/api/src/db/migrations",
-            "output": "db/migrations"
-          },
-          {
-            "glob": "**/*",
-            "input": "apps/api/src/db/seeds",
-            "output": "db/seeds"
-          },
-          {
-            "glob": ".env",
-            "input": "apps/api",
-            "output": "."
+        "tsConfig": "apps/api/tsconfig.app.json",
+        "assets": ["apps/api/src/assets"],
+        "generatePackageJson": true,
+        "esbuildOptions": {
+          "sourcemap": true,
+          "outExtension": {
+            ".js": ".js"
           }
-        ]
+        }
       },
       "configurations": {
-        "development": {
-          "optimization": true,
-          "sourceMap": true
-        },
+        "development": {},
         "production": {
-          "optimization": true,
-          "sourceMap": false
+          "generateLockfile": true,
+          "esbuildOptions": {
+            "sourcemap": false,
+            "outExtension": {
+              ".js": ".js"
+            }
+          }
         }
       }
     },
     "serve": {
       "executor": "@nx/js:node",
-      "defaultConfiguration": "production",
+      "defaultConfiguration": "development",
       "dependsOn": ["build"],
       "options": {
         "buildTarget": "api:build",
@@ -52,13 +49,15 @@
       "configurations": {
         "development": {
           "buildTarget": "api:build:development"
-
         },
         "production": {
           "buildTarget": "api:build:production"
         }
-      },
-      "port" : 4800
+      }
+    },
+    "docker-build": {
+      "dependsOn": ["build"],
+      "command": "docker build -f apps/api/Dockerfile . -t api"
     }
   }
 }
