@@ -4,6 +4,7 @@ import ServerRouter, { db } from '../shared/interfaces/interfaces.js';
 import createDebug from 'debug';
 import { errorMiddleware } from '../middlewares/error.middleware.js';
 import * as dotenv from 'dotenv';
+import { Auth } from '../shared/utils/auth.js';
 
 dotenv.config();
 
@@ -74,23 +75,54 @@ export default class ExpressServer {
     this.app.use(errorMiddleware);
   }
 
-  start(PORT = parseInt(process.env.PORT)): void {
+  async start(PORT = parseInt(process.env.PORT)): Promise<void> {
   console.log(PORT)
     this.app.listen(PORT, () => {
       console.log(`Server running on port ${PORT}`);
       debug(`Server running on port ${PORT}`);
     });
 
-    db.raw('SELECT 1')
-      .then(() => {
+    await this.checkDatabase();
+  }
+
+
+  async checkDatabase() {
+      const hasUsersTable = await db.schema.hasTable('users');
+      if (!hasUsersTable) {
+        console.log('No users table found, creating table and initial user...');
+        await this.createUsersTable();
+      } else {
         console.log('Database connection successful');
         debug('Database connection successful');
-      })
-      .catch((error) => {
-        console.error('Database connection failed 1', error);
-        debug('Database connection failed 2', error);
+      }
+    }
 
-        process.exit(1);
-      });
+  async createUsersTable() {
+    await db.schema.createTable('users', (table) => {
+      table.increments('id').primary();
+      table.string('name').notNullable();
+      table.string('email').notNullable().unique();
+      table.string('password').notNullable();
+      table.string('role').notNullable();
+      table.timestamps(true, true);
+    });
+    console.log('Users table created, creating initial user...');
+    await this.createInitialUser();
+    debug('Users table created');
+  }
+
+
+  async createInitialUser() {
+    const hashedPassword = await Auth.hash('password1'); // Implement a env variable for the password
+    await db('users').insert({
+      name: 'Admin User',
+      email: 'admin@example.com',
+      password: hashedPassword,
+      role: 'admin',
+      created_at: db.fn.now(),
+      updated_at: db.fn.now(),
+    });
+    console.log('Initial user created');
+    debug('Initial user created');
   }
 }

@@ -121,9 +121,12 @@ Make sure you have the following installed:
 
 ### Deployment
 
--Admin's dashboard<https://admins-dashboard2.netlify.app/>
--User's dashboard<https://users-dashboard2.netlify.app/>
--API its not deployed yet but you can pull the image from :
+-Admin's dashboard <https://admins-dashboard2.netlify.app/>
+
+-User's dashboard <https://users-dashboard2.netlify.app/>
+
+-API <https://user-dashboard-api-latest.onrender.com/> or:
+
 docker pull fabio798/fabio798/user-dashboard-api:latest
 
 ---
@@ -184,7 +187,7 @@ Implemented useEffect with proper dependency arrays and introduced memoization t
 ### 🚧 CORS Policy Error
 
 Error:
-Access to XMLHttpRequest at 'backend url' from origin 'https://admins-dashboard2.netlify.app' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+Access to XMLHttpRequest at 'backend-url' from origin 'front-end' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
 Cause:
 Missing Access-Control-Allow-Origin header in the server's response.
 Solution:
@@ -201,4 +204,3 @@ Revised the Dockerfile with the following changes:
 Specified the correct base image.
 Added necessary environment variables.
 Fixed the build context and ensured all required files were included.
-

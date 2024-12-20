@@ -11,31 +11,19 @@ import AppNavbar from './components/AppNavbar';
 import Header from './components/Header';
 import SideMenu from './components/SideMenu';
 import AppTheme from '../shared-theme/AppTheme';
-import {
-  chartsCustomizations,
-  dataGridCustomizations,
-  datePickersCustomizations,
-  treeViewCustomizations,
-} from './theme/customizations';
 import type {} from '@mui/material/themeCssVarsAugmentation';
 import { styled } from '@mui/material/styles';
 import MainGrid from './components/MainGrid';
 import { Outlet } from 'react-router-dom';
 import { DashboardProps } from './interfaces';
 import { useState } from 'react';
+import { ThemeProvider } from '@emotion/react';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const StyledComponent = styled('button')(({ theme }) => ({
   // ✅ typed-safe
   color: theme.vars.palette.primary.main,
 }));
-
-const xThemeComponents = {
-  ...chartsCustomizations,
-  ...dataGridCustomizations,
-  ...datePickersCustomizations,
-  ...treeViewCustomizations,
-};
 
 
 const Dashboard: React.FC<DashboardProps> = ({ user, allUsers, onLogout, onEditProfile, handleRemove, handleRetrieve, handleCreateUser }) => {
@@ -54,7 +42,8 @@ const Dashboard: React.FC<DashboardProps> = ({ user, allUsers, onLogout, onEditP
   };
 
   return (
-    <AppTheme themeComponents={xThemeComponents}>
+    <ThemeProvider theme={AppTheme}>
+    <AppTheme>
       <CssBaseline enableColorScheme />
       <Box sx={{ display: 'flex' }}>
        <SideMenu user={user} onLogout={onLogout} onCreateUserClick={onCreateUserClick} onHomeClick={onHomeClick}/>
@@ -85,6 +74,7 @@ const Dashboard: React.FC<DashboardProps> = ({ user, allUsers, onLogout, onEditP
         </Box>
       </Box>
     </AppTheme>
+    </ThemeProvider>
   );
 }
 

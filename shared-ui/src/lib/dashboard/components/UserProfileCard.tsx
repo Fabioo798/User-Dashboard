@@ -41,7 +41,6 @@ const UserProfileCard: React.FC<UserProfileCardProps> = ({ user, onEditProfile, 
   const handleSave = async () => {
     try {
       const userToUpdate = { ...updatedUser, id: user.id };
-      console.log(userToUpdate)
       const response = await onEditProfile(userToUpdate);
       if(response.ok){
       setSnackbarMessage('Profile updated successfully!');

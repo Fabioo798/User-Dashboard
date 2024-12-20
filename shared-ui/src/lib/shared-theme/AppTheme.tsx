@@ -43,6 +43,7 @@ export default function AppTheme(props: AppThemeProps) {
         });
   }, [disableCustomTheme, themeComponents]);
   if (disableCustomTheme) {
+    // eslint-disable-next-line react/jsx-no-useless-fragment
     return <React.Fragment>{children}</React.Fragment>;
   }
   return (

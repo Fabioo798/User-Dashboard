@@ -7,6 +7,7 @@ import userTheme from '../theme/userTheme';
 import { store } from '../store/store';
 import AppRoutes from '../routes/routes';
 
+
 const queryClient = new QueryClient();
 export function App() {
   return (
